@@ -14,10 +14,7 @@ touch ./dir2/empty
 # создаём файл task/dir2/hello.sh с таким содержанием:
 # #!/bin/bash
 # echo "$1, привет!"
-cat <<END > dir2/hello.sh 
-#!/bin/bash
-echo "\$1, привет!"
-END
+echo -e '#!/bin/bash \necho "$1, привет!"' > ./dir2/hello.sh
 # устанавливаем для task/dir2/hello.sh права rwxrw-r--
 chmod 764 ./dir2/hello.sh
 # сохраняем список файлов task/dir2 в task/dir2/list.txt
@@ -30,7 +27,7 @@ find ./ -name "*.txt" > ./dir1/summary.txt
 # дописываем в task/dir1/summary.txt содержимое task/dir2/list.txt
 cat ./dir2/list.txt >> ./dir1/summary.txt
 # определяем переменную окружения NAME со значением "Всем студентам"
-NAME="Всем студентам"
+export NAME="Всем студентам"
 # запускаем task/dir2/hello.sh с переменной окружения NAME в качестве аргумента
 # вывод скрипта должен дописаться в файл task/dir1/summary.txt
 ./dir2/hello.sh "$NAME" >> ./dir1/summary.txt
